@@ -1,0 +1,17 @@
+{
+  "name": "eeca-noticias",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Portal profissional da comunidade escolar EECA",
+  "scripts": {
+    "check": "node --check script.js && node tests/validate-static.mjs",
+    "test:smoke": "node tests/smoke.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

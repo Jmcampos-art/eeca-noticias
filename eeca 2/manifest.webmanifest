@@ -1,0 +1,14 @@
+{
+  "name": "EECA Notícias",
+  "short_name": "EECA",
+  "description": "Portal da comunidade escolar EECA",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#0b1220",
+  "icons": [
+    { "src": "favicon-144.png", "sizes": "144x144", "type": "image/png" },
+    { "src": "favicon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

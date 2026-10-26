@@ -1,0 +1,66 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "noticias": {
+      ".read": true,
+      ".indexOn": ["data"],
+      "$id": {
+        ".write": "auth != null && (auth.token.role === 'admin' || auth.token.role === 'diretor')",
+        ".validate": "!newData.exists() || (newData.hasChildren(['titulo','categoria','resumo','texto','data','autorUid']) && newData.child('titulo').isString() && newData.child('titulo').val().length >= 5 && newData.child('titulo').val().length <= 140 && newData.child('categoria').isString() && newData.child('categoria').val().length <= 40 && newData.child('resumo').isString() && newData.child('resumo').val().length >= 20 && newData.child('resumo').val().length <= 240 && newData.child('texto').isString() && newData.child('texto').val().length >= 40 && newData.child('texto').val().length <= 10000 && newData.child('autorUid').val() === auth.uid)"
+      }
+    },
+    "comentarios_noticias": {
+      "$noticiaId": {
+        ".read": true,
+        ".indexOn": ["data"],
+        "$commentId": {
+          ".write": "auth != null && ((!data.exists() && newData.exists() && newData.child('uid').val() === auth.uid) || (data.exists() && !newData.exists() && (auth.token.role === 'admin' || auth.token.role === 'diretor')))",
+          ".validate": "!newData.exists() || (newData.hasChildren(['nome','texto','data','uid']) && newData.child('nome').isString() && newData.child('nome').val().length <= 80 && newData.child('texto').isString() && newData.child('texto').val().length >= 2 && newData.child('texto').val().length <= 500 && newData.child('uid').val() === auth.uid)"
+        }
+      }
+    },
+    "reclamacoes_pendentes": {
+      ".indexOn": ["data"],
+      "$id": {
+        ".read": "auth != null && (auth.token.role === 'admin' || auth.token.role === 'diretor')",
+        ".write": "auth != null && ((!data.exists() && newData.exists() && newData.child('uid').val() === auth.uid) || (data.exists() && !newData.exists() && (auth.token.role === 'admin' || auth.token.role === 'diretor')))",
+        ".validate": "!newData.exists() || (newData.hasChildren(['tipo','nome','titulo','texto','data','uid','status']) && newData.child('tipo').isString() && newData.child('tipo').val().length <= 20 && newData.child('nome').isString() && newData.child('nome').val().length <= 80 && newData.child('titulo').isString() && newData.child('titulo').val().length >= 5 && newData.child('titulo').val().length <= 120 && newData.child('texto').isString() && newData.child('texto').val().length >= 20 && newData.child('texto').val().length <= 2000 && newData.child('status').val() === 'pendente')"
+      }
+    },
+    "mensagens_arquivadas": {
+      ".read": "auth != null && (auth.token.role === 'admin' || auth.token.role === 'diretor')",
+      ".write": "auth != null && (auth.token.role === 'admin' || auth.token.role === 'diretor')"
+    },
+    "reclamacoes": {
+      ".read": true,
+      ".write": "auth != null && (auth.token.role === 'admin' || auth.token.role === 'diretor')",
+      ".indexOn": ["data"]
+    },
+    "mensagens": {
+      ".read": true,
+      ".write": "auth != null && (auth.token.role === 'admin' || auth.token.role === 'diretor')",
+      ".indexOn": ["data"]
+    },
+    "radio_musicas": {
+      ".read": "auth != null && (auth.token.role === 'admin' || auth.token.role === 'diretor')",
+      ".indexOn": ["data", "status"],
+      "$id": {
+        ".write": "auth != null && ((!data.exists() && newData.exists() && newData.child('uid').val() === auth.uid && newData.child('status').val() === 'pendente') || (data.exists() && (auth.token.role === 'admin' || auth.token.role === 'diretor')))",
+        ".validate": "!newData.exists() || (newData.hasChildren(['solicitante','serieSolicitante','musica','tipo','status','data','uid']) && newData.child('solicitante').isString() && newData.child('solicitante').val().length >= 2 && newData.child('solicitante').val().length <= 80 && newData.child('serieSolicitante').isString() && newData.child('serieSolicitante').val().length <= 40 && newData.child('musica').isString() && newData.child('musica').val().length >= 2 && newData.child('musica').val().length <= 160 && newData.child('status').isString() && (newData.child('status').val() === 'pendente' || newData.child('status').val() === 'aprovada' || newData.child('status').val() === 'negada'))"
+      }
+    },
+    "radio_programacao": {
+      ".read": true,
+      ".write": "auth != null && (auth.token.role === 'admin' || auth.token.role === 'diretor')"
+    },
+    "configuracoes": {
+      ".read": true,
+      ".write": "auth != null && (auth.token.role === 'admin' || auth.token.role === 'diretor')"
+    },
+    "configuracoes_noticias": {
+      ".read": true,
+      ".write": "auth != null && (auth.token.role === 'admin' || auth.token.role === 'diretor')"
+    }
+  }
+}
